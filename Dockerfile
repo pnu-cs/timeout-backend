@@ -1,5 +1,4 @@
 FROM openjdk:11
-COPY target/*.jar timeout-0.0.1-SNAPSHOT.jar
+COPY target/*.jar timeout.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "timeout-0.0.1-SNAPSHOT.jar"]
-
+ENTRYPOINT ["java", "-jar", "timeout.jar"]
