@@ -21,23 +21,25 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- Name: user; Type: TABLE; Schema: public; Owner: root
+-- Name: users; Type: TABLE; Schema: public; Owner: root
 --
 
-CREATE TABLE public."user" (
-    id integer NOT NULL,
-    name text
+CREATE TABLE public.users (
+    id bigint NOT NULL,
+    email character varying(255) NOT NULL,
+    first_name character varying(255) NOT NULL,
+    last_name character varying(255) NOT NULL,
+    password character varying(255) NOT NULL
 );
 
 
-ALTER TABLE public."user" OWNER TO root;
+ALTER TABLE public.users OWNER TO root;
 
 --
--- Name: user_id_seq; Type: SEQUENCE; Schema: public; Owner: root
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: root
 --
 
-CREATE SEQUENCE public.user_id_seq
-    AS integer
+CREATE SEQUENCE public.users_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -45,43 +47,51 @@ CREATE SEQUENCE public.user_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.user_id_seq OWNER TO root;
+ALTER TABLE public.users_id_seq OWNER TO root;
 
 --
--- Name: user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: root
 --
 
-ALTER SEQUENCE public.user_id_seq OWNED BY public."user".id;
-
-
---
--- Name: user id; Type: DEFAULT; Schema: public; Owner: root
---
-
-ALTER TABLE ONLY public."user" ALTER COLUMN id SET DEFAULT nextval('public.user_id_seq'::regclass);
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
--- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: root
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: root
 --
 
-COPY public."user" (id, name) FROM stdin;
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: root
+--
+
+COPY public.users (id, email, first_name, last_name, password) FROM stdin;
 \.
 
 
 --
--- Name: user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: root
 --
 
-SELECT pg_catalog.setval('public.user_id_seq', 1, false);
+SELECT pg_catalog.setval('public.users_id_seq', 1, false);
 
 
 --
--- Name: user user_pk; Type: CONSTRAINT; Schema: public; Owner: root
+-- Name: users uk_6dotkott2kjsp8vw4d0m25fb7; Type: CONSTRAINT; Schema: public; Owner: root
 --
 
-ALTER TABLE ONLY public."user"
-    ADD CONSTRAINT user_pk PRIMARY KEY (id);
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT uk_6dotkott2kjsp8vw4d0m25fb7 UNIQUE (email);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: root
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
 
 
 --
