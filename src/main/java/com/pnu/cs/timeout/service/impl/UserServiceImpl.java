@@ -50,4 +50,9 @@ public class UserServiceImpl implements UserService {
         List<User> users = userRepository.findAll();
         return users.isEmpty() ? new ArrayList<>() : users;
     }
+
+    @Override
+    public User readByEmail(String email) {
+        return userRepository.getUserByEmail(email);
+    }
 }
