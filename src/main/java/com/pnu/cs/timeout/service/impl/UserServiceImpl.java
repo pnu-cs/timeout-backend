@@ -4,6 +4,7 @@ import com.pnu.cs.timeout.dto.UserDto;
 import com.pnu.cs.timeout.model.User;
 import com.pnu.cs.timeout.repository.UserRepository;
 import com.pnu.cs.timeout.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
 
+    @Autowired
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -33,10 +35,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User update(User user) {
-        if (user != null && userRepository.existsById(user.getId())) {
-            userRepository.save(user);
+        if (user != null) {
+            if (userRepository.existsById(user.getId())) {
+                return userRepository.save(user);
+            }
         }
-        return user;
+
+        return null;
     }
 
     @Override
