@@ -21,11 +21,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto create(UserDto dto) {
-        User user = UserDto.toEntity(dto);
-
-        User saved = userRepository.save(user);
-        return UserDto.toDto(saved);
+    public User create(User user) {
+        if (user != null) {
+            userRepository.save(user);
+        }
+        return user;
     }
 
     @Override
@@ -58,8 +58,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto readByEmail(String email) {
-        User user = userRepository.getUserByEmail(email);
-        return UserDto.toDto(user);
+    public User readByEmail(String email) {
+        return userRepository.getUserByEmail(email);
     }
 }

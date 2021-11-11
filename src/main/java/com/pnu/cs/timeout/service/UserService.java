@@ -6,10 +6,10 @@ import com.pnu.cs.timeout.model.User;
 import java.util.List;
 
 public interface UserService {
-    UserDto create(UserDto dto);
+    User create(User user);
     User readById(long id);
     User update(User user);
     void delete(long id);
     List<User> getAll();
-    UserDto readByEmail(String email);
+    User readByEmail(String email);
 }

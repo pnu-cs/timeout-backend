@@ -22,21 +22,4 @@ public class UserDto {
     //@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,32}$",
     //        message = "Must contain at least one digit,lowercase and uppercase Latin character, special symbol and a length from 8 to 32")
     private String password;
-
-    public static User toEntity(UserDto dto) {
-        return User.builder()
-                .email(dto.getEmail())
-                .firstName(dto.getFirstName())
-                .lastName(dto.getLastName())
-                .password(dto.getPassword())
-                .build();
-    }
-
-    public static UserDto toDto(User user) {
-        return UserDto.builder()
-                .email(user.getEmail())
-                .firstName(user.getFirstName())
-                .lastName(user.getLastName())
-                .build();
-    }
 }
