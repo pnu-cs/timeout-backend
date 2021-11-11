@@ -1,5 +1,6 @@
 package com.pnu.cs.timeout.service.impl;
 
+import com.pnu.cs.timeout.dto.UserDto;
 import com.pnu.cs.timeout.model.User;
 import com.pnu.cs.timeout.repository.UserRepository;
 import com.pnu.cs.timeout.service.UserService;
@@ -20,11 +21,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User create(User user) {
-        if (user != null) {
-            userRepository.save(user);
-        }
-        return user;
+    public UserDto create(UserDto dto) {
+        User user = UserDto.toEntity(dto);
+
+        User saved = userRepository.save(user);
+        return UserDto.toDto(saved);
     }
 
     @Override
@@ -45,7 +46,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(long id) {
-        if(userRepository.existsById(id)) {
+        if (userRepository.existsById(id)) {
             userRepository.deleteById(id);
         }
     }
@@ -57,7 +58,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User readByEmail(String email) {
-        return userRepository.getUserByEmail(email);
+    public UserDto readByEmail(String email) {
+        User user = userRepository.getUserByEmail(email);
+        return UserDto.toDto(user);
     }
 }
