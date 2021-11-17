@@ -7,6 +7,8 @@ public class UserTransformer {
         return User.builder()
                 .email(dto.getEmail())
                 .password(dto.getPassword())
+                .firstName(dto.getFirstName())
+                .lastName(dto.getLastName())
                 .build();
     }
 
@@ -14,6 +16,8 @@ public class UserTransformer {
         return UserDto.builder()
                 .email(user.getEmail())
                 .password(user.getPassword())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
                 .build();
     }
 }
