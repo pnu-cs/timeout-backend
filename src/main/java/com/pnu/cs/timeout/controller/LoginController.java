@@ -5,11 +5,15 @@ import com.pnu.cs.timeout.dto.UserTransformer;
 import com.pnu.cs.timeout.model.User;
 import com.pnu.cs.timeout.service.UserService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.util.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -22,23 +26,37 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public UserDto login(@Valid @RequestBody UserDto userDto, BindingResult result) {
-        if (result.hasErrors()) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY);
-        }
-
+    public ResponseEntity<User> login(@RequestBody UserDto userDto) {
         User userByEmail = userService.readByEmail(userDto.getEmail());
 
         if (userByEmail != null && userByEmail.getPassword().equals(userDto.getPassword())) {
-            return UserTransformer.toDto(userByEmail);
+            return new ResponseEntity<>(userByEmail, HttpStatus.OK);
         } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(UserTransformer.toEntity(userDto), HttpStatus.NOT_FOUND);
         }
     }
 
     @PostMapping("/register")
-    public UserDto register(@Valid @RequestBody UserDto userDto, BindingResult result) {
-        return UserTransformer.toDto(userService.create(UserTransformer.toEntity(userDto)));
+    public ResponseEntity<String> register(@Valid @RequestBody UserDto userDto) {
+        if (userService.readByEmail(userDto.getEmail()) == null) {
+            userService.create(UserTransformer.toEntity(userDto));
+            return ResponseEntity.ok("Successfully registered user");
+        } else {
+            return ResponseEntity.unprocessableEntity().body("User is already exist");
+        }
+
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            errors.put(fieldName, errorMessage);
+        });
+        return errors;
     }
 
 }
