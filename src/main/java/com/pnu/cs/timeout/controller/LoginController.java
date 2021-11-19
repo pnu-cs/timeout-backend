@@ -37,12 +37,12 @@ public class LoginController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@Valid @RequestBody UserDto userDto) {
+    public ResponseEntity<UserDto> register(@Valid @RequestBody UserDto userDto) {
         if (userService.readByEmail(userDto.getEmail()) == null) {
-            userService.create(UserTransformer.toEntity(userDto));
-            return ResponseEntity.ok("Successfully registered user");
+            User user = userService.create(UserTransformer.toEntity(userDto));
+            return ResponseEntity.ok(UserTransformer.toDto(user));
         } else {
-            return ResponseEntity.unprocessableEntity().body("User is already exist");
+            return ResponseEntity.unprocessableEntity().body(userDto);
         }
 
     }
