@@ -4,6 +4,7 @@ import com.pnu.cs.timeout.dto.UserDto;
 import com.pnu.cs.timeout.dto.UserTransformer;
 import com.pnu.cs.timeout.model.User;
 import com.pnu.cs.timeout.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -21,6 +22,7 @@ public class LoginController {
 
     private final UserService userService;
 
+    @Autowired
     public LoginController(UserService userService) {
         this.userService = userService;
     }
