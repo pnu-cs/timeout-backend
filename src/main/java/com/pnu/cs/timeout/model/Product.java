@@ -18,6 +18,10 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Lob
+    @Column(name = "photo", columnDefinition="bytea",  nullable = false)
+    private byte[] photo;
+
     @Column(name = "name", nullable = false)
     private String name;
 
