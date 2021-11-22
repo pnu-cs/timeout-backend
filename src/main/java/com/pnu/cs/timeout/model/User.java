@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -34,8 +35,11 @@ public class User {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-        @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,32}$",
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,32}$",
             message = "Must contain at least one digit,lowercase and uppercase Latin character, special symbol and a length from 8 to 32")
     @Column(name = "password", nullable = false)
     private String password;
+
+    @OneToMany(mappedBy = "customer")
+    private List<Order> orderList;
 }
