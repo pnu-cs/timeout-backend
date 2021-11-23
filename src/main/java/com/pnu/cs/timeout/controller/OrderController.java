@@ -29,10 +29,11 @@ public class OrderController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Order> login(@RequestBody OrderDto orderDto) {
-        return new ResponseEntity<>(
-                orderService.create(
-                        OrderTransformer.toEntity(orderDto, userService, productService)
-                ), HttpStatus.OK);
+    public ResponseEntity<Long> login(@RequestBody OrderDto orderDto) {
+        Order order = orderService.create(
+                OrderTransformer.toEntity(orderDto, userService, productService)
+        );
+
+        return new ResponseEntity<>(order.getId(), HttpStatus.OK);
     }
 }
