@@ -1,5 +1,7 @@
 package com.pnu.cs.timeout.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,15 +25,16 @@ public class Order {
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDateTime;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id")
+    @JsonBackReference
     private User customer;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "made_orders",
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "order_detail_id"))
-    private List<OrderDetails> orderDetails;
+    private List<OrderDetails> orderDetailsList;
 }
 

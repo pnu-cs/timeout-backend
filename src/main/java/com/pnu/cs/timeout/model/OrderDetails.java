@@ -1,5 +1,7 @@
 package com.pnu.cs.timeout.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,11 +21,14 @@ public class OrderDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToMany(mappedBy = "orderDetails")
+    @ManyToMany(
+            mappedBy = "orderDetailsList"
+    )
     private List<Order> order;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_id")
+    @JsonBackReference
     private Product product;
 
     @Column(name = "quantity", nullable = false)
