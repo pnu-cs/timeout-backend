@@ -18,7 +18,7 @@ INSERT INTO products (
                       year_of_issue)
 VALUES (
         1,
-        pg_read_binary_file('/Users/mikepavlyuk/IntelliJ IDEA Projects/timeout-backend/src/main/resources/assets/item1.png')::bytea,
+        'https://drive.google.com/uc?export=view&id=1fvQLh8JMl7voV--BEXnurqidfijdCpMG',
         'Rolex',
         'Mechanically',
         'Gold watch with lots of diamonds and a gold dial.',
@@ -56,7 +56,7 @@ INSERT INTO products (
     year_of_issue)
 VALUES (
            2,
-           pg_read_binary_file('/Users/mikepavlyuk/IntelliJ IDEA Projects/timeout-backend/src/main/resources/assets/item2.png')::bytea,
+           'https://drive.google.com/uc?export=view&id=1y_Zv9DiMnES3HTtqoi-_csPxpwDXQSKM',
            'Rolex',
            'Self-winding',
            'Rose gold and steel watch of the highest quality.',
@@ -94,7 +94,7 @@ INSERT INTO products (
     year_of_issue)
 VALUES (
            3,
-           pg_read_binary_file('/Users/mikepavlyuk/IntelliJ IDEA Projects/timeout-backend/src/main/resources/assets/item3.png')::bytea,
+           'https://drive.google.com/uc?export=view&id=1S9tPGGDsexXGyiuqs65kprTPEyTGbn2w',
            'Rolex',
            'From the battery',
            'Low quality rose gold watch with stopwatch and timer waterproof.',
