@@ -1,5 +1,6 @@
 package com.pnu.cs.timeout.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -67,6 +68,9 @@ public class Product {
     @Column(name = "water_resistance", nullable = false)
     private String waterResistance;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(
+            mappedBy = "product"
+    )
+    @JsonManagedReference
     private List<OrderDetails> orderDetails;
 }

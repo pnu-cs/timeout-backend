@@ -1,5 +1,6 @@
 package com.pnu.cs.timeout.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -40,6 +41,9 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(
+            mappedBy = "customer"
+    )
+    @JsonManagedReference
     private List<Order> orderList;
 }
