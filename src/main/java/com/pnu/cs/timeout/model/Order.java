@@ -35,6 +35,7 @@ public class Order {
             name = "made_orders",
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "order_detail_id"))
+    @JsonBackReference
     private List<OrderDetails> orderDetailsList;
 }
 

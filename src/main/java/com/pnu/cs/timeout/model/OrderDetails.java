@@ -24,6 +24,7 @@ public class OrderDetails {
     @ManyToMany(
             mappedBy = "orderDetailsList"
     )
+    @JsonManagedReference
     private List<Order> order;
 
     @ManyToOne(cascade = CascadeType.ALL)
