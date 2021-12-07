@@ -29,7 +29,7 @@ public class OrderController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Long> login(@RequestBody OrderDto orderDto) {
+    public ResponseEntity<Long> addOrder(@RequestBody OrderDto orderDto) {
         Order order = orderService.create(
                 OrderTransformer.toEntity(orderDto, userService, productService)
         );
