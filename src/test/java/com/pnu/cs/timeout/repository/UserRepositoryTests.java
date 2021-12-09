@@ -21,7 +21,7 @@ public class UserRepositoryTests {
     @BeforeEach
     public void setUp() {
         user = new User();
-        user.setEmail("mike@gmail.com");
+        user.setEmail("mike1@gmail.com");
         user.setPassword("Mike12345!");
         user.setFirstName("Mykhailo");
         user.setLastName("Pavliuk");;
@@ -36,7 +36,7 @@ public class UserRepositoryTests {
 
     @Test
     public void getUserByExistingEmailTest() {
-        Assertions.assertEquals(user, userRepository.getUserByEmail("mike@gmail.com"));
+        Assertions.assertEquals(user, userRepository.getUserByEmail("mike1@gmail.com"));
     }
 
     @Test
